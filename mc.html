@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns=http://www.w3.org/1999/xhtml>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>控制器和模型</title>
+	<script src="./angular.js"></script>
+	<link rel="stylesheet" type="text/css" href="./demo.css">
+</head>
+<body>
+<div class="menu">
+	<a href="./index.html">menu</a>
+</div>
+<div class="mybody">
+	<div class="result">
+		<div ng-app="mc-app" ng-controller="mc-my-ctr">
+			姓：<input type="text" ng-model="first_name">
+			名：<input type="text" ng-model="send_name">	
+			<p>{{first_name +" "+send_name}}</p>
+		</div>
+		<div ng-app="" id="tt">
+			姓：<input type="text" ng-model="first_name2">
+			名：<input type="text" ng-model="send_name2">	
+			<p>{{first_name2+" "+send_name2}}</p>
+		</div>
+	</div>
+	<div class="code">
+		<textarea>
+<div ng-app="mc-app" ng-controller="mc-my-ctr">
+	姓：<input type="text" ng-model="first_name">
+	名：<input type="text" ng-model="send_name">	
+	<p>{{first_name +" "+send_name}}</p>
+</div>
+		</textarea>
+	</div>
+</div>
+<script src="./app.js"></script>
+</body>
+</html>

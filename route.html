@@ -2,7 +2,7 @@
 <html xmlns=http://www.w3.org/1999/xhtml>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>第一个实例</title>
+	<title>单页应用-路由</title>
 	<script src="./angular-1.5.7/angular.js"></script>
 	<script src="./angular-1.5.7/angular-route.js"></script>
 	<script src="./app.js"></script>
@@ -41,11 +41,18 @@
 
 <script type="text/javascript">
 	var router = angular.module('myRoute',['ngRoute'])
+			.controller('count_comment',function($scope){
+				$scope.comments = ['hello','welcome','nice','good'];
+				$scope.count = 4+$scope.comments.length;
+			})
             .config(['$routeProvider', function($routeProvider){
 			$routeProvider
 			.when('/',{template:"这是首页"})
 			.when('/content',{template:"这是内容页"})
-			.when('/comment',{template:"评论页"})
+			.when('/comment',{
+				templateUrl:"./route_comment.html",
+				controller:"count_comment"
+			})
 			.otherwise({redirectTo:'/'});
 	}]);
     angular.bootstrap(document.getElementById('result'),['myRoute']);
@@ -55,11 +62,18 @@
 </div>
 <script type="text/javascript">
 	var router = angular.module('myRoute',['ngRoute'])
+			.controller('count_comment',function($scope){
+				$scope.comments = ['hello','welcome','nice','good'];
+				$scope.count = 4+$scope.comments.length;
+			})
             .config(['$routeProvider', function($routeProvider){
 			$routeProvider
 			.when('/',{template:"这是首页"})
 			.when('/content',{template:"这是内容页"})
-			.when('/comment',{template:"评论页"})
+			.when('/comment',{
+				templateUrl:"./route_comment.html",
+				controller:"count_comment"
+			})
 			.otherwise({redirectTo:'/'});
 	}]);
     angular.bootstrap(document.getElementById('result'),['myRoute']);

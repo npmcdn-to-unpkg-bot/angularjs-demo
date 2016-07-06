@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns=http://www.w3.org/1999/xhtml>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>服务</title>
+	<script src="./angular-1.5.7/angular.js"></script>
+	<script src="./app.js"></script>
+	<link rel="stylesheet" type="text/css" href="./demo.css">
+</head>
+<body>
+<div class="menu">
+	<a href="./index.html">menu</a>
+</div>
+<div class="mybody">
+	<div id="result">
+		<div id="set_time" ng-app="myApp" ng-controller="set_time">
+			<p>time:{{time}}</p>
+		</div>
+
+		<div id="timeout" ng-app="serTimeout" ng-controller="show_welcome">
+			<p>{{msg}}</p>
+		</div>
+	</div>
+	<div id="code" ng-app="code-app" ng-controller="show_code">
+		<button ng-click="toggle()">显示代码</button>
+		<textarea ng-hide="code_area">
+<div id="set_time" ng-app="myApp" ng-controller="set_time">
+	<p>time:{{time}}</p>
+</div>
+
+<div id="timeout" ng-app="serTimeout" ng-controller="show_welcome">
+	<p>{{msg}}</p>
+</div>
+
+<script type="text/javascript">
+	var myapp = angular.module('myApp',[]);
+	myapp.controller('set_time',function($scope,$interval){
+		$scope.time = new Date().toLocaleTimeString();
+		$interval(function(){
+			$scope.time = new Date().toLocaleTimeString();
+		},1000);
+	});
+	angular.bootstrap(document.getElementById('set_time'),['myApp']);
+
+	var serTimeout = angular.module('serTimeout',[]);
+	serTimeout.controller('show_welcome',function($scope,$timeout){
+		$scope.msg = '哟西，初始化一下';
+		$timeout(function(){
+			$scope.msg = '我是2s后显示的';
+		},2000);
+	});
+	angular.bootstrap(document.getElementById('timeout'),['serTimeout']);
+</script>	
+		</textarea>
+	</div>
+</div>
+<script type="text/javascript">
+	var myapp = angular.module('myApp',[]);
+	myapp.controller('set_time',function($scope,$interval){
+		$scope.time = new Date().toLocaleTimeString();
+		$interval(function(){
+			$scope.time = new Date().toLocaleTimeString();
+		},1000);
+	});
+	angular.bootstrap(document.getElementById('set_time'),['myApp']);
+
+	var serTimeout = angular.module('serTimeout',[]);
+	serTimeout.controller('show_welcome',function($scope,$timeout){
+		$scope.msg = '哟西，初始化一下';
+		$timeout(function(){
+			$scope.msg = '我是2s后显示的';
+		},2000);
+	});
+	angular.bootstrap(document.getElementById('timeout'),['serTimeout']);
+
+	var code_app = angular.module('code-app',[]);
+	code_app.controller('show_code',function($scope){
+		$scope.code_area = true;
+		$scope.toggle = function(){
+			$scope.code_area = !$scope.code_area;
+		}
+	});
+	angular.bootstrap(document.getElementById('code'),['code-app']);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns=http://www.w3.org/1999/xhtml>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>第一个实例</title>
+	<script src="./angular-1.5.7/angular.js"></script>
+	<script src="./angular-1.5.7/angular-route.js"></script>
+	<script src="./app.js"></script>
+	<link rel="stylesheet" type="text/css" href="./demo.css">
+</head>
+<body>
+<div class="menu">
+	<a href="./index.html">menu</a>
+</div>
+<div class="mybody">
+	<div id="result">
+		<div ng-app="myRoute">
+			<div >
+				<ul>
+					<li><a href="#/">首页</a></li>
+					<li><a href="#/content">内容页</a></li>
+					<li><a href="#/comment">评论</a></li>
+				</ul>
+			</div>
+			<div ng-view></div>
+		</div>
+	</div>
+	<div id="code" ng-app="code-app" ng-controller="show_code">
+		<button ng-click="toggle()">显示代码</button>
+		<textarea ng-hide="code_area">
+<div ng-app="myRoute">
+	<div >
+		<ul>
+			<li><a href="#/">首页</a></li>
+			<li><a href="#/content">内容页</a></li>
+			<li><a href="#/comment">评论</a></li>
+		</ul>
+	</div>
+	<div ng-view></div>
+</div>
+
+<script type="text/javascript">
+	var router = angular.module('myRoute',['ngRoute'])
+            .config(['$routeProvider', function($routeProvider){
+			$routeProvider
+			.when('/',{template:"这是首页"})
+			.when('/content',{template:"这是内容页"})
+			.when('/comment',{template:"评论页"})
+			.otherwise({redirectTo:'/'});
+	}]);
+    angular.bootstrap(document.getElementById('result'),['myRoute']);
+</script>			
+		</textarea>
+	</div>
+</div>
+<script type="text/javascript">
+	var router = angular.module('myRoute',['ngRoute'])
+            .config(['$routeProvider', function($routeProvider){
+			$routeProvider
+			.when('/',{template:"这是首页"})
+			.when('/content',{template:"这是内容页"})
+			.when('/comment',{template:"评论页"})
+			.otherwise({redirectTo:'/'});
+	}]);
+    angular.bootstrap(document.getElementById('result'),['myRoute']);
+
+	var code_app = angular.module('code-app',[]);
+	code_app.controller('show_code',function($scope){
+		$scope.code_area = true;
+		$scope.toggle = function(){
+			$scope.code_area = !$scope.code_area;
+		}
+	});
+	angular.bootstrap(document.getElementById('code'),['code-app']);
+</script>
+
+</body>
+</html>

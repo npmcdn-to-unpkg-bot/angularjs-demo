@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>表达式</title>
-	<script src="./angular.js"></script>
+	<script src="./angular-1.5.7/angular.js"></script>
 	<link rel="stylesheet" type="text/css" href="./demo.css">
 </head>
 <body>
@@ -12,14 +12,15 @@
 </div>
 
 <div class="mybody">
-	<div class="result">
+	<div id="result">
 		<div ng-app="">
 			<input type="text" ng-model="name">
 			<p>name:{{5+5}}</p>
 		</div>
 	</div>
-	<div class="code">
-		<textarea>
+	<div id="code" ng-app="code-app" ng-controller="show_code">
+		<button ng-click="toggle()">显示代码</button>
+		<textarea ng-hide="code_area">
 <div ng-app="">
 	<input type="text" ng-model="name">
 	<p>name:{{5+5}}</p>
@@ -28,5 +29,15 @@
 	</div>
 </div>
 <script src="./app.js"></script>
+<script type="text/javascript">
+	var code_app = angular.module('code-app',[]);
+	code_app.controller('show_code',function($scope){
+		$scope.code_area = true;
+		$scope.toggle = function(){
+			$scope.code_area = !$scope.code_area;
+		}
+	});
+	angular.bootstrap(document.getElementById('code'),['code-app']);
+</script>
 </body>
 </html>

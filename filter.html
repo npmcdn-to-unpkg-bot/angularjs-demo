@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns=http://www.w3.org/1999/xhtml>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>过滤器</title>
+	<script src="./angular-1.5.7/angular.js"></script>
+	<script src="./angular-1.5.7/angular-route.js"></script>
+	<link rel="stylesheet" type="text/css" href="./demo.css">
+</head>
+<body>
+<div class="menu">
+	<a href="./index.html">menu</a>
+</div>
+<div class="mybody">
+	<div id="result">
+		<div ng-app="myFilter">
+			<p>
+				<h3>uppercase</h3>
+			</p>
+			name:<input type="text" ng-model="name_uppercase">
+			<p>{{name_uppercase | uppercase}}</p>
+			<hr>
+			<p><h3>currency</h3></p>
+			数量：<input type="text" ng-model="quantity">
+			<br>
+			单价：<input type="text" ng-model="price">
+			<p>{{quantity * price | currency}}</p>
+			<hr>
+			<p><h3>orderBy</h3></p>
+			<ul ng-init="names=[{name:'szl','country':'china'},{'name':'bob','country':'us'},{'name':'xxx','country':'japan'},{'name':'jack','country':'usa'}]">
+			  <li ng-repeat="x in names | orderBy:'country'">
+			    {{ x.name + ', ' + x.country }}
+			  </li>
+			</ul>
+			<p>
+				<h3>自定义</h3>
+			</p>
+			<div>
+				城市：<input type="text" ng-model="city">
+				<p>欢迎来到 {{city | myUpper}}！</p>
+			</div>
+		</div>
+	</div>
+	<div id="code" ng-app="code-app" ng-controller="show_code">
+		<button ng-click="toggle()">显示代码</button>
+		<textarea ng-hide="code_area">
+<div ng-app="myFilter">
+	<p>
+		<h3>uppercase</h3>
+	</p>
+	name:<input type="text" ng-model="name_uppercase">
+	<p>{ {name_uppercase | uppercase} }</p>
+	<hr>
+	<p><h3>currency</h3></p>
+	数量：<input type="text" ng-model="quantity">
+	<br>
+	单价：<input type="text" ng-model="price">
+	<p>{ {quantity * price | currency} }</p>
+	<hr>
+	<p><h3>orderBy</h3></p>
+	<ul ng-init="names=[{name:'szl','country':'china'},{'name':'bob','country':'us'},{'name':'xxx','country':'japan'},{'name':'jack','country':'usa'}]">
+	  <li ng-repeat="x in names | orderBy:'country'">
+	    { { x.name + ', ' + x.country } }
+	  </li>
+	</ul>
+	<p>
+		<h3>自定义</h3>
+	</p>
+	<div>
+		城市：<input type="text" ng-model="city">
+		<p>欢迎来到 { {city | myUpper} }！</p>
+	</div>
+</div>
+<script type="text/javascript">
+	angular.module('myFilter',[])
+	.filter('myUpper',function(){
+		return function(input){
+			if(input){
+				return input[0].toUpperCase() + input.slice(1);
+			}
+		}
+	});
+</script>
+		</textarea>
+	</div>
+</div>
+<script type="text/javascript">
+	angular.module('myFilter',[])
+	.filter('myUpper',function(){
+		return function(input){
+			if(input){
+				return input[0].toUpperCase() + input.slice(1);
+			}
+		}
+	});
+
+	var code_app = angular.module('code-app',[]);
+	code_app.controller('show_code',function($scope){
+		$scope.code_area = true;
+		$scope.toggle = function(){
+			$scope.code_area = !$scope.code_area;
+		}
+	});
+	angular.bootstrap(document.getElementById('code'),['code-app']);
+</script>
+
+</body>
+</html>

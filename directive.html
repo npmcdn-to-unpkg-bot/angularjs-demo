@@ -2,38 +2,56 @@
 <html xmlns=http://www.w3.org/1999/xhtml>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>表达式</title>
+	<title>指令</title>
 	<script src="./angular-1.5.7/angular.js"></script>
+	<script src="./angular-1.5.7/angular-route.js"></script>
 	<link rel="stylesheet" type="text/css" href="./demo.css">
 </head>
 <body>
 <div class="menu">
 	<a href="./index.html">menu</a>
 </div>
-
 <div class="mybody">
 	<div id="result">
-		<div ng-app="">
-			<p>age:{{5+5}}</p>
-			<hr>
-			<input type="text" ng-model="name">
-			<p>name:{{name}}</p>
+		<div ng-app="myApp">
+			<my-directive></my-directive>
+			<div my-directive></div>
+			<div my-param-directive my-url="http://google.com" my-txt="google.com" my-test="hahaha"></div>
 		</div>
 	</div>
 	<div id="code" ng-app="code-app" ng-controller="show_code">
 		<button ng-click="toggle()">显示代码</button>
 		<textarea ng-hide="code_area">
-<div ng-app="">
-	<p>age:{ {5+5} }</p>
-	<hr>
-	<input type="text" ng-model="name">
-	<p>name:{ {name} }</p>
+<div ng-app="myApp">
+	<my-directive></my-directive>
+	<div my-directive></div>
+	<div class="my-directive"></div>
 </div>
 		</textarea>
 	</div>
 </div>
-<script src="./app.js"></script>
 <script type="text/javascript">
+	angular.module('myApp',[])
+	.directive('myDirective',function(){
+		return {
+			restrict:'EACM',
+			template:'<a href="www.baidu.com">www.baidu.com</a>'
+		};
+
+	})
+	.directive('myParamDirective',function(){
+		return {
+			restrict:'A',
+			scope:{
+				myUrl:'@',//绑定策略
+				myTxt:'@',
+				myTest:'=myTest'
+			},
+			template:'<a href="{{myUrl}}">{{myTxt + " " + test}}</a>'
+		};
+
+	});
+
 	var code_app = angular.module('code-app',[]);
 	code_app.controller('show_code',function($scope){
 		$scope.code_area = true;
@@ -43,5 +61,6 @@
 	});
 	angular.bootstrap(document.getElementById('code'),['code-app']);
 </script>
+
 </body>
 </html>
